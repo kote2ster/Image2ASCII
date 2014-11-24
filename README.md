@@ -10,7 +10,9 @@ Features:
 - Resizes CMD to maximum resolution, so a bigger ASCII art is generated
 - The ASCII pictures always fit in the CMD window, even when you resize it
 - Has a dynamic menu, which lists folders and pic files in ./images/
+- Put your .PNG and .PPM images and folders in ./images/
 - You can set a loop number which generates more pictures successively
+- It is advised to put extracted .gif pictures (PNGs) in one folder and then loop can be used for animation!
 - You can redirect the output from Console window to output file
 - You can resize the ASCII picture
 - It supports Extended and Basic ASCII Character Sets too
