@@ -14,7 +14,7 @@ typedef struct
 {
     SIZES FontSize;
     SIZES CharAmount; //Console window char amount per rows and columns
-    SIZES Size; //Console window size in pixels
+    SIZES Sizes; //Console window size in pixels
 } CONSOLEINFO;
 
 void SetConsoleWindowFullScreen(SIZES *CharAmount);
