@@ -5,7 +5,7 @@ Capable of converting .PNG and .PPM images to ASCII art
 
 This program is purely written in C
 
-It contains several features:
+Features:
 ----------
 - Resizes CMD to maximum resolution, so a bigger ASCII art is generated
 - The ASCII pictures always fit in the CMD window, even when you resize it
