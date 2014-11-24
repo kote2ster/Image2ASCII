@@ -4,8 +4,10 @@
 #include "TextScreenIni.h"
 #include "WindowsConsoleIni.h"
 #include "lodepng.h"
+#include <string.h>
 #include <math.h>
 #include <dirent.h>
+#include <stdlib.h>
 
 #define PATH_LONG 100 //Max how long is the path to the file
 //#define ExtendedASCIICharSet //Define this to enable extended ASCII support
