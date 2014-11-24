@@ -2,4 +2,33 @@ Image2ASCII
 ===========
 
 Capable of converting .PNG and .PPM images to ASCII art
-a
+
+This program is purely written in C
+
+It contains several features:
+----------
+- Resizes CMD to maximum resolution, so a bigger ASCII art is generated
+- The ASCII pictures always fit in the CMD window, even when you resize it
+- Has a dynamic menu, which lists folders and pic files in ./images/
+- You can set a loop number which generates more pictures successively
+- You can redirect the output from Console window to output file
+- You can resize the ASCII picture
+- It supports Extended and Basic ASCII Character Sets too
+
+For compiling:
+---------
+
+- Used external library: PDCURSES (Windows) - http://pdcurses.sourceforge.net/
+  * Building instructions for windows:
+  * Download pdcurs34.zip
+  * in cmd.exe (or in msys) set PDCURSES_SRCDIR = \<main pdcurses root folder\>
+  * then set environment variable (path) to C:\MinGW\bin
+  * then in pdcurses root folder: mingw32-make.exe -f .\win32\mingwin32.mak
+  * after it is finished you have to include pdcurses.a in your projects linker (and in search directory the .h location)
+
+Others:
+---------
+- Used external functions for decoding .PNG images: LodePNG - http://lodev.org/lodepng/
+- Used external exe for creating Character Tables: png2charset - http://www.piclist.com/techref/datafile/charset/extractor/charset_extractor.htm
+
+##### The main OS target was Windows, but should be working on other systems too (the windows only functions are in seperate files)
