@@ -2,7 +2,7 @@ Image2ASCII
 ===========
 
 Capable of converting .PNG and .PPM images to ASCII art
-
+Put any image into ./images/ folder
 This program is purely written in C
 
 Features:
@@ -21,12 +21,12 @@ For compiling:
 ---------
 
 - Used external library: PDCURSES (Windows) - http://pdcurses.sourceforge.net/
-  * Building instructions for windows:
+  * Building instructions for Windows:
   * Download pdcurs34.zip
   * in cmd.exe (or in msys) set PDCURSES_SRCDIR = \<main pdcurses root folder\>
   * then set environment variable (path) to C:\MinGW\bin
   * then in pdcurses root folder: mingw32-make.exe -f .\win32\mingwin32.mak
-  * after it is finished you have to include pdcurses.a in your projects linker (and in search directory the .h location)
+  * after it is finished you have to include pdcurses.a in your project's linker (and curses.h header is in main pdcurses root folder)
 
 Others:
 ---------
