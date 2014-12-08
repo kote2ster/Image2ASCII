@@ -2,7 +2,9 @@ Image2ASCII
 ===========
 
 Capable of converting .PNG and .PPM images to ASCII art
+
 Put any image into ./images/ folder
+
 This program is purely written in C
 
 Features:
