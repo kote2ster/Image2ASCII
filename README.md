@@ -9,7 +9,7 @@ Features:
 ----------
 - Resizes Console to maximum resolution, so a bigger ASCII art is generated
 - The ASCII pictures always fit in the Console window, even when you resize it
-- Has a dynamic menu, which lists folders and pic files in ./images/
+- Has a dynamic menu, which lists folders and pic files from ./images/
 - Put your .PNG and .PPM images and folders in ./images/
 - You can set a loop number which generates more pictures successively
 - It is advised to put extracted .gif pictures (PNGs) in one folder and then loop can be used for animation!
