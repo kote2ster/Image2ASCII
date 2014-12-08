@@ -7,8 +7,8 @@ This program is purely written in C
 
 Features:
 ----------
-- Resizes CMD to maximum resolution, so a bigger ASCII art is generated
-- The ASCII pictures always fit in the CMD window, even when you resize it
+- Resizes Console to maximum resolution, so a bigger ASCII art is generated
+- The ASCII pictures always fit in the Console window, even when you resize it
 - Has a dynamic menu, which lists folders and pic files in ./images/
 - Put your .PNG and .PPM images and folders in ./images/
 - You can set a loop number which generates more pictures successively
