@@ -323,7 +323,7 @@ void ProcessPNG(IMAGE* PNG,SUBSECTION subsec)
  * @param [out] PPM IMAGE type, gets the weight for each SUBSECTION
  * @param [in] subsec SUBSECTION informations
  * @param [in] CharSet CHAR_SET informations
- * @details Tries to contrast up SUBSECTIONS for clearer curves in images see AMPLIFIER
+ * @details Tries to contrast up SUBSECTIONS for clearer curves in images see AMPLIFIER,  min((CHAR_SET.ARR[][][] - ImgSubWeight[][])^2)
  */
 void PreciseProcessPNG(IMAGE* PNG,SUBSECTION subsec,CHAR_SET CharSet)
 {
