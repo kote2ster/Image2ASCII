@@ -1,63 +1,76 @@
+/**
+ * @file TextScreenIni.c
+ * @brief Implementations of Curses funtions
+ */
 #include "TextScreenIni.h"
 
-WINDOW* Screens()
-{
-    WINDOW* new_windows;
-    new_windows = newwin(LINES/2-10,COLS/2-40,LINES -LINES/2+10 -2,COLS -COLS/2+40 -2); //New Window params:(height,width,stary,starx)
-    box(new_windows,' ',' ');
-    wrefresh(new_windows);
-    keypad(new_windows,TRUE); //Re-Enable all keyboard inputs
-    return new_windows;
-}
 /*------------------------Initialisers-------------------------*/
+/**
+* @brief Main initalisation for PDCURSES (Curses.h)
+* @param [in] ConsoleWidth Width of Console (in chars)
+* @param [in] ConsoleHeight Height of Console (in chars)
+* @param [out] stdwindow Outs the standard window output, see [Curses Tutorial](http://tldp.org/HOWTO/NCURSES-Programming-HOWTO/)
+*/
 void InitialisePDCURSES(size_t ConsoleWidth,size_t ConsoleHeight,WINDOW **stdwindow)
 {
-    (*stdwindow) = initscr();
-    resize_term(ConsoleHeight,ConsoleWidth); //Resizing terminal...
+    (*stdwindow) = initscr(); /* Getting standard ncurses window handler */
+    resize_term(ConsoleHeight,ConsoleWidth); /* Resizing terminal... */
     noecho();
-    cbreak(); //getch() waits for one character
+    cbreak();    /* getch() waits for one character */
     start_color();
-    curs_set(0); //Cursor blinking OFF
-    keypad((*stdwindow),TRUE); //Enable all keyboard inputs
+    curs_set(0); /* Cursor blinking OFF */
+    keypad((*stdwindow),TRUE); /* Enable all keyboard inputs */
     clear();
     refresh();
 
-    initcolors(); //Initializing COLOR_PAIRS
+    initcolors(); /* Initializing COLOR_PAIRS */
 }
+/**
+* @brief Initialising colors... setting to Black-White default
+*/
 void initcolors()
 {
     init_pair(1,COLOR_WHITE,COLOR_BLACK);
-    bkgd(COLOR_PAIR(1)); //Entire Console screen White-Black
-//    init_pair(2,COLOR_BLUE,COLOR_GREEN);
-//    init_pair(3,COLOR_RED,COLOR_WHITE);
+    bkgd(COLOR_PAIR(1)); /* Entire Console screen White-Black */
+    /*   init_pair(2,COLOR_BLUE,COLOR_GREEN);
+     *   init_pair(3,COLOR_RED,COLOR_WHITE);
+     */
 }
 /*-------------------------------------------------------------*/
+/**
+* @brief Main listing function which lists all filenames and options in screen
+* @param [in] choices File/Foldername choices
+* @param [in] options Optional choices
+* @param [in] ConSizeY Size of Console in chars
+* @return index of the chosen option
+*/
 int MenuChoices(CHAR2DARRAY choices,CHAR2DARRAY options,int ConSizeY,WINDOW *stdwindow)
 {
-    int ch;
-    int i;
+    int ch; /* Input management (getch()) */
+    int i,y,x;
     int arr_relative_index = 0;
     int arr_index = 0;
-    int MENU_Y_ADD = 3; //Lower whole Choice Menu
+    int MENU_Y_ADD = 3;      /* Lower whole Choice Menu */
+    int LEFT_MENU_BOUND = 3; /* Move right whole Choice Menu */
     int HIGH_MENU_BOUND = MENU_Y_ADD;
-    int LEFT_MENU_BOUND = 3; //Move right whole Choice Menu
     int LOW_MENU_BOUND = MENU_Y_ADD+choices.arr_size-1;
-    int y=HIGH_MENU_BOUND;
-    int x=LEFT_MENU_BOUND;
-    int MoreChoices = 0;
+    int MoreChoices = 0; /* Check if there are more options which do not fit in screen */
+    y=HIGH_MENU_BOUND;
+    x=LEFT_MENU_BOUND;
     if(ConSizeY<=(MENU_Y_ADD+choices.arr_size+options.arr_size))
     {
         LOW_MENU_BOUND = ConSizeY-1-options.arr_size-1;
         MoreChoices = 1;
     }
 
-//    stdwindow = Screens(); //Create NEW SCREEN (UPDATES stdscr)
+    /*    stdwindow = create_newwin();  //Create NEW SCREEN (UPDATES stdscr) */
 
     /*--------------Writing out Menu Choices-------------*/
+    /* Writing out Choices */
     for (i=0; i<LOW_MENU_BOUND+1-MENU_Y_ADD; i++)
     {
-        mvwprintw(stdwindow,y+i,x,"  %s",choices.arr[i]); //Writing out Choices
-        clrtoeol(); //Clear to end of line
+        mvwprintw(stdwindow,y+i,x,"  %s",choices.arr[i]);
+        clrtoeol(); /* Clear to end of line */
     }
     mvwchgat(stdwindow,y, x+2, strlen(choices.arr[y-HIGH_MENU_BOUND]), A_BLINK, 0, NULL);
     mvwprintw(stdwindow,y,x,"->");
@@ -66,16 +79,18 @@ int MenuChoices(CHAR2DARRAY choices,CHAR2DARRAY options,int ConSizeY,WINDOW *std
         mvwprintw(stdwindow,LOW_MENU_BOUND-1,x, "||");
         mvwprintw(stdwindow,LOW_MENU_BOUND  ,x,"\\/");
     }
+    /* Writing out OPTIONS */
     for(i=0; i<options.arr_size; i++)
     {
-        mvwprintw(stdwindow,LOW_MENU_BOUND+2+i,x,"%s",options.arr[i]); //Writing out OPTIONS
-        clrtoeol(); //Clear to end of line
+        mvwprintw(stdwindow,LOW_MENU_BOUND+2+i,x,"%s",options.arr[i]);
+        clrtoeol(); /* Clear to end of line */
     }
     wrefresh(stdwindow);
     /*---------------------------------------------------*/
     do
     {
-        ch = wgetch(stdwindow); //Wait for user input... then dehighlight prev. selection, remove '->' then highlight choice, add '->'
+        /* Wait for user input... then dehighlight prev. selection, remove '->' then highlight choice, add '->' */
+        ch = wgetch(stdwindow);
 
         mvwchgat(stdwindow,y, x+2, strlen(choices.arr[arr_index+arr_relative_index]), A_NORMAL, 0, NULL);
         mvwprintw(stdwindow,y,x,"  ");
@@ -140,42 +155,55 @@ int MenuChoices(CHAR2DARRAY choices,CHAR2DARRAY options,int ConSizeY,WINDOW *std
             mvwprintw(stdwindow,LOW_MENU_BOUND -1,x,"  ");
             mvwprintw(stdwindow,LOW_MENU_BOUND   ,x,"  ");
         }
+        /* Writing out Choices */
         for (i=0; i<LOW_MENU_BOUND+1-MENU_Y_ADD; i++)
         {
-            mvwprintw(stdwindow,HIGH_MENU_BOUND+i,x+2,"%s",choices.arr[arr_index+i]); //Writing out Choices
-            clrtoeol(); //Clear to end of line
+            mvwprintw(stdwindow,HIGH_MENU_BOUND+i,x+2,"%s",choices.arr[arr_index+i]);
+            clrtoeol(); /* Clear to end of line */
         }
         mvwchgat(stdwindow,y,x+2, strlen(choices.arr[arr_index+arr_relative_index]), A_BLINK, 0, NULL);
         mvwprintw(stdwindow,y,x,"->");
         wrefresh(stdwindow);
-        if(CheckIfExit(stdwindow,ch)) return KEY_EXIT; //Esc pressed
+        if(CheckIfExit(stdwindow,ch)) return KEY_EXIT; /* Esc pressed */
     }
-    while(ch!='\n' && (ch<'0'||ch>'9') ); //While ENTER or 0<=ch<=9
+    while(ch!='\n' && (ch<'0'||ch>'9') ); /* While ENTER or 0<=ch<=9 */
 
     wclear(stdwindow);
     wmove(stdwindow,0,0);
     wrefresh(stdwindow);
 
     if (ch>='0'&&ch<='9')
-        return -(ch-'0'); //returning optional choice (negated)
+        return -(ch-'0'); /* returning optional choice (negated) */
 
-    return arr_index+arr_relative_index; //returning choice number...
-//    mvwprintw(stdwindow,LOW_MENU_BOUND+2,x,"CHOICE: %i",y+1-HIGH_MENU_BOUND); //Writing out selected choice
-//    wrefresh(stdwindow);
-//    wgetch(stdwindow);
+    return arr_index+arr_relative_index; /* returning choice number... */
+    /* mvwprintw(stdwindow,LOW_MENU_BOUND+2,x,"CHOICE: %i",y+1-HIGH_MENU_BOUND); // Writing out selected choice */
+    /* wrefresh(stdwindow);
+     * wgetch(stdwindow);
+     */
 }
+/**
+* @brief Creates new screen (window)
+* @param [in] height
+* @param [in] width
+* @param [in] starty
+* @param [in] startx
+*/
 WINDOW *create_newwin(int height, int width, int starty, int startx)
 {
     WINDOW *local_win;
 
     local_win = newwin(height, width, starty, startx);
-    box(local_win, 0 , 0);		/* 0, 0 gives default characters
-					 * for the vertical and horizontal
-					 * lines			*/
-    wrefresh(local_win);		/* Show that box 		*/
+    box(local_win, 0 , 0); /* 0, 0 gives default characters
+                            * for the vertical and horizontal
+                            * lines			*/
+    wrefresh(local_win);   /* Show that box 		*/
 
     return local_win;
 }
+/**
+* @brief Destroys screen (window)
+* @param [in] local_win
+*/
 void destroy_win(WINDOW *local_win)
 {
     /* box(local_win, ' ', ' '); : This won't produce the desired
@@ -197,6 +225,12 @@ void destroy_win(WINDOW *local_win)
     wrefresh(local_win);
     delwin(local_win);
 }
+/**
+* @brief Checks if Exit was pressed
+* @param [in] stdwindow in the standard window
+* @param [in] choice which was pressed
+* @return true (1) if exit was pressed
+*/
 int CheckIfExit(WINDOW *stdwindow,int choice)
 {
     if(choice==27)
@@ -206,9 +240,9 @@ int CheckIfExit(WINDOW *stdwindow,int choice)
         if(choice==ERR)
         {
             nodelay(stdwindow,0);
-            return 1; //Escape
+            return 1; /* Escape button pressed */
         }
     }
     nodelay(stdwindow,0);
-    return 0; //Not escape
+    return 0; /* Not Escape button */
 }

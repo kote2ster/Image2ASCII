@@ -29,7 +29,9 @@
 			</Target>
 		</Build>
 		<Compiler>
+			<Add option="-pedantic" />
 			<Add option="-Wall" />
+			<Add option="-ansi" />
 			<Add option="-fexceptions" />
 			<Add directory="$(#pdcurses.include)" />
 		</Compiler>
@@ -40,6 +42,9 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="Functions.h">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="IMAGE2ASCII.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="TextScreenIni.c">
@@ -58,9 +63,6 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="lodepng.h">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Extensions>
