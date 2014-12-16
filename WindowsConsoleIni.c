@@ -1,5 +1,5 @@
 /**
- * @file WimdowsConsoleIni.c
+ * @file WindowsConsoleIni.c
  * @brief Implementations of Windows only functions
  */
 #include "WindowsConsoleIni.h"
