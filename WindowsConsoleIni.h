@@ -1,5 +1,5 @@
 /**
- * @file WimdowsConsoleIni.h
+ * @file WindowsConsoleIni.h
  * @brief Header of Windows only functions
  * @def WINXP
  * @brief if defined: omitting not for xp function
