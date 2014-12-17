@@ -36,7 +36,7 @@
  * [7]: _i_m_a_g_e2_a_s_c_i_i_8c.html#a7139d8293983e2bdbab9094c4c3b4475 "FONTSIZE_Y"
  */
 
-int main(void)
+int main(int argc, char *argv[])
 {
     WINDOW *stdwindow; /* The standard window for curses */
     CONSOLEINFO Con;
