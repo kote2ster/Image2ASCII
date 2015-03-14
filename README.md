@@ -3,7 +3,7 @@ Image2ASCII
 
 Capable of converting .PNG and .PPM images to ASCII art
 
-This program is purely written in C
+This program is written in C++
 
 Features:
 ----------
