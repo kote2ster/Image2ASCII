@@ -330,7 +330,7 @@ void PreciseProcessPNG(IMAGE* PNG,SUBSECTION subsec,CHAR_SET CharSet)
     int WeightTemp[CHAR_NUM]; /* how many are similar */
     int*ImgSubWeight = calloc(CHAR_Y*CHAR_X,sizeof(int)); /* a pixel brightness of the image */
     int weight,weight_min,weight_max,cnt,minIndex,minPixels;
-    unsigned i,j,k,l,m,n;
+    unsigned i,j,k,l,m;
     PNG->Weight = NULL;
     PNG->ASCII_Image = (unsigned char*)calloc(PNG->WidthTile*PNG->HeightTile,sizeof(unsigned char));
     for(i=0; i<PNG->HeightTile; i++)

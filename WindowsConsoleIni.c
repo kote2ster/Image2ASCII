@@ -8,14 +8,14 @@
 * @brief (Only for Windows) Sets the Console window to full screen
 * @param [out] CharAmount how many chars fits in screen (vertically and horizontally)
 */
-void SetConsoleWindowFullScreen(SIZES *CharAmount)
-{
+void SetConsoleWindowFullScreen(SIZES *CharAmount) {
     HANDLE outcon;
-    HWND consoleHWND;
     COORD consize;
     SMALL_RECT Rect; /* Rectangle STRUCT for setting Window Size */
+#ifndef BASIGMINGW
+    HWND consoleHWND;
     RECT r;
-
+#endif /* BASIGMINGW */
     outcon = GetStdHandle(STD_OUTPUT_HANDLE);    /* Get Console Window Handle */
     /* Get console max rows number and max columns number (number of chars fit in window) */
     consize=GetLargestConsoleWindowSize(outcon);
@@ -47,12 +47,12 @@ void SetConsoleWindowFullScreen(SIZES *CharAmount)
 * @brief (Only for Windows) Gets the new window sizes
 * @param [out] Con sets in CONSOLEINFO type
 */
-void GetConsoleDimensions(CONSOLEINFO *Con)
-{
+void GetConsoleDimensions(CONSOLEINFO *Con) {
     CONSOLE_SCREEN_BUFFER_INFO csbi;
+#ifndef BASIGMINGW
     HWND consoleHWND;
     RECT r;
-
+#endif /* BASIGMINGW */
     /* Get info, and get the resized console size parameters (columns, rows) */
     GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
 
@@ -74,8 +74,7 @@ void GetConsoleDimensions(CONSOLEINFO *Con)
 * @brief (Only for Windows and for newer WINAPI) Sets the Console font size to the defined FontSize_X and FontSize_Y
 * @param [in] FontSize defined font size informations
 */
-void SetConsoleFont(SIZES FontSize)
-{
+void SetConsoleFont(SIZES FontSize) {
 #if !defined(WINXP) && !defined(BASIGMINGW) /* Minimum supported client: Windows Vista */
     HANDLE outcon;
     CONSOLE_FONT_INFOEX font;
