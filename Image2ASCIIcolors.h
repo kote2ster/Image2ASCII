@@ -17,7 +17,7 @@
 #define ConsoleSize_X 160
 #define ConsoleSize_Y 90
 #define PATH_LONG 100
-#define ROOT_FOLDER "h:/Dropbox/Public/source_codes/c/Image2ASCII/images"
+#define ROOT_FOLDER "images"
 //#define BlockCharsOnly
 //#define ChangeBlackWhite
 //#define ExtendedASCIICharSet
